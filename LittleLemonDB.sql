@@ -19,7 +19,7 @@ USE `LittleLemonDM` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`CustomerDetails` (
   `idCustomer` INT NOT NULL,
-  `Neme` VARCHAR(255) NOT NULL,
+  `Name` VARCHAR(255) NOT NULL,
   `ContactDetails` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`idCustomer`))
 ENGINE = InnoDB;
@@ -44,16 +44,33 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `LittleLemonDM`.`MenuItems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`MenuItems` (
+  `idMenuItem` INT NOT NULL,
+  `CourseName` VARCHAR(255) NOT NULL,
+  `StarterName` VARCHAR(255) NOT NULL,
+  `DessertName` VARCHAR(255) NOT NULL,
+  `DrinkName` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`idMenuItem`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `LittleLemonDM`.`Menu`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`Menu` (
   `idMenu` INT NOT NULL,
+  `idMenuItem` INT NOT NULL,
+  `MenuName` VARCHAR(255) NOT NULL,
   `Couisine` VARCHAR(255) NOT NULL,
-  `Starters` VARCHAR(255) NOT NULL,
-  `Courses` VARCHAR(255) NOT NULL,
-  `Drinks` VARCHAR(255) NOT NULL,
-  `Desserts` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`idMenu`))
+  PRIMARY KEY (`idMenu`),
+  INDEX `idMenuItem_idx` (`idMenuItem` ASC) VISIBLE,
+  CONSTRAINT `idMenuItem`
+    FOREIGN KEY (`idMenuItem`)
+    REFERENCES `LittleLemonDM`.`MenuItems` (`idMenuItem`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
